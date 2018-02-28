@@ -61,20 +61,22 @@ if (program.package) {
 
     function zipFolderRecursively(folderName) {
         fs.readdirSync(folderName).forEach(item => {
-            var pathName = path.join(folderName, item);
+            var pathName = path.join(folderName, item)
+                .replace(/\\/g, '/'); // for Windows
             var stat = fs.lstatSync(pathName);
             console.log("file " + pathName + " mode: " + stat.mode);
             if (stat.isFile()) {
                 if (item != mimetypeFileName) {
                     var data = fs.readFileSync(pathName);
                     zip.file(pathName, data, {
-                        createFolders: false,
+                        createFolders: true,
                         compression: "DEFLATE",
                         unixPermissions: stat.mode
                     });
                 }
             } else {
-                var pathName = path.normalize(path.join(folderName, item));
+                var pathName = path.join(folderName, item)
+                    .replace(/\\/g, '/'); // for Windows
                 var stat = fs.lstatSync(pathName);
                 console.log("folder " + pathName + " mode: " + stat.mode);
                 zip.folder(pathName);
