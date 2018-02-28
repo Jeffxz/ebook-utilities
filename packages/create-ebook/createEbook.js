@@ -9,6 +9,9 @@ const packageJson = require('./package.json');
 const path = require('path');
 
 let ebookName;
+const extension = ".epub";
+const output = "output";
+const mimetypeFileName = "mimetype";
 
 const program = new commander.Command(packageJson.name)
     .version(packageJson.version)
@@ -30,22 +33,63 @@ if (typeof ebookName === 'undefined') {
 console.log("ebook name:" + chalk`{green ${ebookName}}`);
 
 if (program.package) {
-    var folder;
+    var inputFolder;
+    var outputFolder;
     if (program.directory) {
-        folder = program.directory;
+        inputFolder = program.directory;
+        outputFolder = './';
         console.log("will package folder " + program.directory);
     } else {
-        folder = "epub"
+        const ebookPath = path.resolve(ebookName);
+        inputFolder = path.join(ebookPath, "epub");
+        outputFolder = path.join(ebookPath, output);
         console.log("will package default folder ./epub ");
     }
     var fileName;
     if (program.kobo) {
-        fileName = ebookName + ".kepub.epub";
+        fileName = ebookName + ".kepub" + extension;
     } else {
-        fileName = ebookName + ".epub";
+        fileName = ebookName + extension;
     }
+
+    process.chdir(inputFolder);
     var zip = new JSZip();
-    zip.folder(folder);
+    var contents = fs.readFileSync(mimetypeFileName);
+    zip.file(mimetypeFileName, contents);
+
+    zipFolderRecursively('./');
+
+    function zipFolderRecursively(folderName) {
+        fs.readdirSync(folderName).forEach(item => {
+            var pathName = path.join(folderName, item);
+            var stat = fs.lstatSync(pathName);
+            console.log("file " + pathName + " mode: " + stat.mode);
+            if (stat.isFile()) {
+                if (item != mimetypeFileName) {
+                    var data = fs.readFileSync(pathName);
+                    zip.file(pathName, data, {
+                        createFolders: false,
+                        compression: "DEFLATE",
+                        unixPermissions: stat.mode
+                    });
+                }
+            } else {
+                var pathName = path.normalize(path.join(folderName, item));
+                var stat = fs.lstatSync(pathName);
+                console.log("folder " + pathName + " mode: " + stat.mode);
+                zip.folder(pathName);
+                zipFolderRecursively(pathName);
+            }
+        });
+    }
+    process.chdir(outputFolder);
+    zip.generateAsync({
+            type: "nodebuffer",
+            platform: process.platform
+        }).then(content => {
+            fs.writeFileSync(fileName, content);
+            console.log(fileName + " is created");
+        });
     console.log(zip.files);
 }
 
@@ -55,7 +99,7 @@ if (program.epub) {
     fse.ensureDirSync(ebookName);
     process.chdir(ebookPath);
 
-    const outputDir = "output";
+    const outputDir = output;
     fse.ensureDirSync(outputDir);
 
     const epubDir = "epub";
@@ -70,7 +114,7 @@ if (program.epub) {
     const oebpsPath = path.resolve(oebpsDir);
     console.log(oebpsPath);
 
-    const mimetypeFile = "mimetype"
+    const mimetypeFile = mimetypeFileName;
     const mimetypeContent = "application/epub+zip"
     fs.writeFileSync(mimetypeFile, mimetypeContent);
 
