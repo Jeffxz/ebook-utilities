@@ -1,25 +1,24 @@
 #!/usr/bin/env node
 
-'use strict';
+'use strict'
 
-var chalk = require('chalk');
+const chalk = require('chalk')
+const EbookDevUtil = require('ebook-dev-utility')
 
-var version = process.versions.node.split('.');
-var major = version[0];
+const currentNodeVersion = EbookDevUtil.Version.currentNodeVersion()
+console.log('Your current version of Node is '+ currentNodeVersion)
 
-console.log('Your current version of Node is '+ JSON.stringify(version.join(',')))
-
-if (major < 4) {
-  console.error(
-    chalk.red(
-      'You are running Node ' +
-        currentNodeVersion +
-        '.\n' +
-        'Create Ebook requires Node 4 or higher. \n' +
-        'Please update your version of Node.'
+if (!EbookDevUtil.Version.hasCorrectNodeVersion()) {
+    console.error(
+        chalk.red(
+            'You are running Node ' +
+            currentNodeVersion +
+            '.\n' +
+            'Create Ebook requires Node 4 or higher. \n' +
+            'Please update your version of Node.'
+            )
     )
-  );
-  process.exit(1);
+    process.exit(1)
 }
 
-require('./createEbook');
+require('./create_ebook');

@@ -1,0 +1,21 @@
+{
+  "name": "ebook-dev-utility",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint": "eslint lib/**",
+    "main": "index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zheng Xu",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "jszip": "^3.1.5",
+    "eslint": "^4.18.1"
+  }
+}
