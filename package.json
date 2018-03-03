@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "test"
+    "test": "cd ./packages/ebook-dev-utility;npm test; cd ../create-ebook;npm test"
   },
   "keywords": [
     "epub",
