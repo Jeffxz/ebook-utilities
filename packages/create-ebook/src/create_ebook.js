@@ -3,7 +3,7 @@
 const chalk = require('chalk')
 const commander = require('commander')
 const fse = require('fs-extra')
-const packageJson = require('./package.json')
+const packageJson = require('../package.json')
 const path = require('path')
 const EbookDevUtil = require('ebook-dev-utility')
 

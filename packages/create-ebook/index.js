@@ -21,4 +21,4 @@ if (!EbookDevUtil.Version.hasCorrectNodeVersion()) {
     process.exit(1)
 }
 
-require('./create_ebook');
+require('./src/create_ebook');
