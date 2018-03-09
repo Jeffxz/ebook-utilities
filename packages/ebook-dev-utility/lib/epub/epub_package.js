@@ -10,7 +10,7 @@ class EpubPackage {
         this.bookName = bookName
         this.inputDir = inputDir
         this.extension = '.epub'
-        this.epub = new Epub(bookName)
+        this.epub = new Epub()
         this.zip = new JSZip()
     }
 
@@ -26,7 +26,7 @@ class EpubPackage {
                 .replace(/\\/g, '/'); // for Windows
             const stat = fs.lstatSync(pathName)
             if (stat.isFile()) {
-                if (item != this.epub.mimetypeFileName) {
+                if (item != this.epub.ocf.mimetypeFileName) {
                     const data = fs.readFileSync(pathName)
                     this.zip.file(pathName, data, {
                         createFolders: true,
@@ -43,8 +43,8 @@ class EpubPackage {
 
     save(outputDir) {
         process.chdir(this.inputDir)
-        var contents = fs.readFileSync(this.epub.mimetypeFileName)
-        this.zip.file(this.epub.mimetypeFileName, contents)
+        var contents = fs.readFileSync(this.epub.ocf.mimetypeFileName)
+        this.zip.file(this.epub.ocf.mimetypeFileName, contents)
         this.zipFolderRecursively('./')
 
         process.chdir(outputDir)

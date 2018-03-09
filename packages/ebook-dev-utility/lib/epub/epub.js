@@ -1,12 +1,10 @@
 'use strict'
 
+const Ocf = require('./ocf')
+
 class Epub {
-    constructor(name) {
-        this.name = name
-        this.metaInfoDir = 'META-INF'
-        this.mimetypeFileName = 'mimetype'
-        this.mimetypeContent = 'application/epub+zip'
-        this.containerFile = 'container.xml'
+    constructor() {
+        this.ocf = new Ocf()
     }
 }
 

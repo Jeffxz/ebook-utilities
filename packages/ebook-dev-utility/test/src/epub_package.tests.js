@@ -8,7 +8,6 @@ describe('EpubPackage', function() {
         assert.equal(epubPackage.bookName, 'test-book')
         assert.equal(epubPackage.inputDir, 'test-folder')
         assert.equal(epubPackage.extension, '.epub')
-        assert.equal(epubPackage.epub.name, 'test-book')
         assert.isNotNull(epubPackage.zip)
     })
 })
