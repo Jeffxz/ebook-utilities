@@ -8,7 +8,7 @@ const path = require('path')
 class EpubTemplateGenerator {
     constructor() {
         this.oebpsDir = 'OEBPS'
-        this.epub = new Epub('template')
+        this.epub = new Epub()
     }
 
     build() {
@@ -91,17 +91,17 @@ class EpubTemplateGenerator {
         process.chdir(dir)
 
         fs.writeFileSync(
-            this.epub.mimetypeFileName,
-            this.epub.mimetypeContent
+            this.epub.ocf.mimetypeFileName,
+            this.epub.ocf.mimetypeContent
         )
 
-        fse.ensureDirSync(this.epub.metaInfoDir)
+        fse.ensureDirSync(this.epub.ocf.metaInfoDir)
         fse.ensureDirSync(this.oebpsDir)
 
         const oebpsPath = path.resolve(this.oebpsDir)
-        process.chdir(this.epub.metaInfoDir)
+        process.chdir(this.epub.ocf.metaInfoDir)
         fs.writeFileSync(
-            this.epub.containerFile,
+            this.epub.ocf.containerFile,
             this.containerContent
         )
 
