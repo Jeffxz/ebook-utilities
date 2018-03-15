@@ -5,7 +5,7 @@ const Zipfile = require('../../lib/epub/loader/loader_zipfile')
 const EpubError = require('../../lib/epub/epub_error')
 
 before(function () {
-    this.ebookPath = path.resolve(__dirname, '../ebooks')
+    this.ebookPath = path.resolve(__dirname, '../fixtures/ebooks')
 })
 
 beforeEach(function() {
