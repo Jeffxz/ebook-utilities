@@ -1,0 +1,25 @@
+{
+  "name": "dump-ebook",
+  "version": "0.0.1",
+  "description": "Dump information about ebook",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js src/**",
+    "main": "index.js",
+    "test": "npm run lint && npm run unit",
+    "unit": "mocha test/**/*.tests.js"
+  },
+  "bin": {
+    "verify-ebook": "./index.js"
+  },
+  "author": "Zheng Xu",
+  "license": "MIT",
+  "dependencies": {
+    "npm": "^5.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "mocha": "^5.0.1",
+    "chai": "^4.1.2"
+  }
+}
