@@ -10,7 +10,7 @@ class Ocf {
         this.mimetypeContent = 'application/epub+zip'
         this.containerFile = 'container.xml'
         this.containerFilePath = this.metaInfoDir + '/' + this.containerFile
-        this.opfPath = ''
+        this.opfPath = []
     }
 
     parse(data) {
@@ -18,18 +18,31 @@ class Ocf {
 
         return new Promise((resolve, reject) => {
             parser.parseString(data, (error, result) => {
+                if (!result.container) {
+                    reject(new EpubError('Root element should be container'))
+                }
                 const rootfiles = result.container.rootfiles
-                if (typeof rootfiles === 'undefined') {
+                if (!rootfiles) {
                     reject(new EpubError('rootfiles does not exist in container'))
                 }
                 const rootfile = rootfiles[0].rootfile
-                if (typeof rootfile === 'undefined') {
+                if (!rootfile) {
                     reject(new EpubError('rootfile does not exist in container'))
                 }
-                this.opfPath = rootfile[0].$['full-path']
+                rootfile.forEach(item => {
+                    this.opfPath.push(item.$['full-path'])
+                })
                 resolve(this.opfPath)
             })
         })
+    }
+
+    defaultOpf() {
+        if (!this.opfPath) {
+            return ''
+        }
+
+        return this.opfPath[0]
     }
 }
 
