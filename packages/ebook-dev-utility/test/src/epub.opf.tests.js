@@ -21,8 +21,71 @@ describe('Opf', function() {
             const data = fs.readFileSync(normalOpf)
             await this.opf.parse(data).then(opf => {
                 expect(opf.version).to.equal('3.0')
+                expect(opf.uniqueIdentitier).to.equal('unique-id')
         }, error => {
                 expect(error).to.not.exist
+            })
+        })
+    })
+
+    describe('Error cases', function() {
+        it('should raise error when package element does not exist',
+            async function() {
+            const opf = path.resolve(this.testPath,
+                'illegal-no-package.opf')
+            const data = fs.readFileSync(opf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf).to.not.exist
+            }, error => {
+                expect(error).to.exist
+            })
+        })
+
+        it('should raise error if package is not root element',
+            async function() {
+            const opf = path.resolve(this.testPath,
+                'illegal-package-not-root.opf')
+            const data = fs.readFileSync(opf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf).to.not.exist
+            }, error => {
+                expect(error).to.exist
+            })
+        })
+
+        it('should raise error if package has no version',
+            async function() {
+            const opf = path.resolve(this.testPath,
+                'illegal-package-no-version.opf')
+            const data = fs.readFileSync(opf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf).to.not.exist
+        }, error => {
+                expect(error).to.exist
+            })
+        })
+
+        it('should raise error if package has no uniqueid',
+            async function() {
+            const opf = path.resolve(this.testPath,
+                'illegal-package-no-uniqueid.opf')
+            const data = fs.readFileSync(opf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf).to.not.exist
+        }, error => {
+                expect(error).to.exist
+            })
+        })
+
+        it('should raise error if not any metadata',
+            async function() {
+            const opf = path.resolve(this.testPath,
+                'illegal-no-metadata.opf')
+            const data = fs.readFileSync(opf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf).to.not.exist
+        }, error => {
+                expect(error).to.exist
             })
         })
     })

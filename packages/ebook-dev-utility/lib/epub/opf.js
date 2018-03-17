@@ -25,26 +25,33 @@ class Opf {
         return new Promise((resolve, reject) => {
             try {
                 parser.parseString(data, (error, result) => {
-                    if (typeof result.package === 'undefined') {
+                    if (!result.package) {
                         throw new EpubError('Can opf must have a package element')
                     }
                     const elemPackage = result.package
-                    if (typeof elemPackage.metadata === 'undefined' ||
+                    if (!elemPackage.$.version) {
+                        throw new EpubError('Package must have attribute "version"')
+                    }
+                    this.version = elemPackage.$.version
+                    if (!elemPackage.$['unique-identifier']) {
+                        throw new EpubError('Package must have attribute "unique-identifier"')
+                    }
+                    this.uniqueIdentitier = elemPackage.$['unique-identifier']
+                    if (!elemPackage.metadata ||
                         elemPackage.metadata.length != 1) {
                         throw new EpubError('Opf must have only one metadata')
                     }
                     this.metadata.parse(elemPackage.metadata)
-                    if (typeof elemPackage.manifest === 'undefined' ||
+                    if (!elemPackage.manifest ||
                         elemPackage.manifest.length != 1) {
                         throw new EpubError('Opf must have only one manifest')
                     }
                     this.manifest.parse(elemPackage.manifest)
-                    if (typeof elemPackage.spine === 'undefined' ||
+                    if (!elemPackage.spine ||
                         elemPackage.spine.length != 1) {
                         throw new EpubError('Opf must have only one spine')
                     }
                     this.spine.parse(elemPackage.spine)
-                    this.version = elemPackage.$.version
                     resolve(this)
                 })
             } catch (error) {
