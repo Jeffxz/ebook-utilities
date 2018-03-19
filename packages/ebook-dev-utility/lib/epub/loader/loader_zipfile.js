@@ -43,7 +43,8 @@ class Zipfile {
             zip.loadAsync(data)
                 .then(result => this.loadZip(result))
         } catch (error) {
-            throw new EpubError(error.message)
+            throw new EpubError(EpubError.ErrorType.ERR_EPUB_GENERIC,
+                error.message)
         }
     }
 }
