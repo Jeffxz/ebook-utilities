@@ -2,9 +2,9 @@
 
 const xml2js = require('xml2js')
 const EpubError = require('./epub_error')
-const OpfMetadata = require('./opf_metadata')
-const OpfManifest = require('./opf_manifest')
-const OpfSpine = require('./opf_spine')
+const OpfMetadata = require('./opf/opf_metadata')
+const OpfManifest = require('./opf/opf_manifest')
+const OpfSpine = require('./opf/opf_spine')
 
 class Opf {
     constructor() {
@@ -41,23 +41,43 @@ class Opf {
                         elemPackage.metadata.length != 1) {
                         throw new EpubError('Opf must have only one metadata')
                     }
-                    this.metadata.parse(elemPackage.metadata)
+                    this.metadata.parse(elemPackage.metadata[0])
                     if (!elemPackage.manifest ||
                         elemPackage.manifest.length != 1) {
                         throw new EpubError('Opf must have only one manifest')
                     }
-                    this.manifest.parse(elemPackage.manifest)
+                    this.manifest.parse(elemPackage.manifest[0])
                     if (!elemPackage.spine ||
                         elemPackage.spine.length != 1) {
                         throw new EpubError('Opf must have only one spine')
                     }
-                    this.spine.parse(elemPackage.spine)
+                    this.spine.parse(elemPackage.spine[0])
                     resolve(this)
                 })
             } catch (error) {
                 reject(error)
             }
         })
+    }
+
+    get title() {
+        return this.metadata.title
+    }
+
+    get language() {
+        return this.metadata.language
+    }
+
+    get identifier() {
+        return this.metadata.identifier
+    }
+
+    get creator() {
+        return this.metadata.dcmesItems['dc:creator']
+    }
+
+    get meta() {
+        return this.metadata.meta
     }
 }
 
