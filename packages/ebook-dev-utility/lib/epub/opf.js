@@ -51,7 +51,7 @@ class Opf {
                         elemPackage.spine.length != 1) {
                         throw new EpubError('Opf must have only one spine')
                     }
-                    this.spine.parse(elemPackage.spine[0])
+                    this.spine.parse(elemPackage.spine[0], this.manifest.itemMap)
                     resolve(this)
                 })
             } catch (error) {
