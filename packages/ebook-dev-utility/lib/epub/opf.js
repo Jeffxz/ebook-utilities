@@ -26,30 +26,30 @@ class Opf {
             try {
                 parser.parseString(data, (error, result) => {
                     if (!result.package) {
-                        throw new EpubError('Can opf must have a package element')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_NO_PACKAGE)
                     }
                     const elemPackage = result.package
                     if (!elemPackage.$.version) {
-                        throw new EpubError('Package must have attribute "version"')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_NO_VERSION)
                     }
                     this.version = elemPackage.$.version
                     if (!elemPackage.$['unique-identifier']) {
-                        throw new EpubError('Package must have attribute "unique-identifier"')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_NO_UNIUE_ID)
                     }
                     this.uniqueIdentitier = elemPackage.$['unique-identifier']
                     if (!elemPackage.metadata ||
                         elemPackage.metadata.length != 1) {
-                        throw new EpubError('Opf must have only one metadata')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_METADATA_COUNT)
                     }
                     this.metadata.parse(elemPackage.metadata[0])
                     if (!elemPackage.manifest ||
                         elemPackage.manifest.length != 1) {
-                        throw new EpubError('Opf must have only one manifest')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_MANIFEST_COUNT)
                     }
                     this.manifest.parse(elemPackage.manifest[0])
                     if (!elemPackage.spine ||
                         elemPackage.spine.length != 1) {
-                        throw new EpubError('Opf must have only one spine')
+                        throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_SPINE_COUNT)
                     }
                     this.spine.parse(elemPackage.spine[0], this.manifest.itemMap)
                     resolve(this)

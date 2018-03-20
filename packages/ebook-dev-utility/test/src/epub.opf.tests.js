@@ -4,6 +4,7 @@ const expect = require('chai').expect
 const path = require('path')
 const fs = require('fs')
 const Opf = require('../../lib/epub/opf')
+const EpubError = require('../../lib/epub/epub_error')
 
 describe('Opf', function() {
     before(function() {
@@ -45,7 +46,7 @@ describe('Opf', function() {
             await this.opf.parse(data).then(opf => {
                 expect(opf).to.not.exist
             }, error => {
-                expect(error).to.exist
+                expect(error.id).to.equal(EpubError.ErrorType.ERR_EPUB_OPF_NO_PACKAGE)
             })
         })
 
@@ -57,7 +58,7 @@ describe('Opf', function() {
             await this.opf.parse(data).then(opf => {
                 expect(opf).to.not.exist
             }, error => {
-                expect(error).to.exist
+                expect(error.id).to.equal(EpubError.ErrorType.ERR_EPUB_OPF_NO_PACKAGE)
             })
         })
 
@@ -69,7 +70,7 @@ describe('Opf', function() {
             await this.opf.parse(data).then(opf => {
                 expect(opf).to.not.exist
         }, error => {
-                expect(error).to.exist
+                expect(error.id).to.equal(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_NO_VERSION)
             })
         })
 
@@ -81,7 +82,7 @@ describe('Opf', function() {
             await this.opf.parse(data).then(opf => {
                 expect(opf).to.not.exist
         }, error => {
-                expect(error).to.exist
+                expect(error.id).to.equal(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_NO_UNIUE_ID)
             })
         })
 
@@ -93,7 +94,7 @@ describe('Opf', function() {
             await this.opf.parse(data).then(opf => {
                 expect(opf).to.not.exist
         }, error => {
-                expect(error).to.exist
+                expect(error.id).to.equal(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_METADATA_COUNT)
             })
         })
     })

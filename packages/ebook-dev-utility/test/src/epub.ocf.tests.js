@@ -2,6 +2,7 @@ const expect = require('chai').expect
 const path = require('path')
 const fs = require('fs')
 const Ocf = require('../../lib/epub/ocf')
+const EpubError = require('../../lib/epub/epub_error')
 
 describe('Ocf', function() {
     before(function () {
@@ -51,7 +52,8 @@ describe('Ocf', function() {
                 await this.ocf.parse(data).then(opfPath => {
                     expect(opfPath).to.not.exist
             }, error => {
-                    expect(error).to.exist
+                    expect(error.id).to
+                        .equal(EpubError.ErrorType.ERR_EPUB_OCF_NO_CONTAINER)
                 })
             })
 
@@ -63,7 +65,8 @@ describe('Ocf', function() {
                 await this.ocf.parse(data).then(opfPath => {
                     expect(opfPath).to.not.exist
             }, error => {
-                    expect(error).to.exist
+                    expect(error.id).to
+                        .equal(EpubError.ErrorType.ERR_EPUB_OCF_NO_ROOTFILES)
                 })
             })
         })
