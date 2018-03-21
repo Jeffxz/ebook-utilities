@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+  xmlns="http://www.idpf.org/2007/opf"
+  version="3.0"
+  unique-identifier="unique-id"
+  prefix="rendition: http://www.idpf.org/vocab/rendition/#" >
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title">Epub Sample</dc:title>
+    <dc:creator id="creator01">Ebook Utilities</dc:creator>
+    <dc:language>ja</dc:language>
+    <dc:identifier id="unique-id">urn:uuid:xxxx-yyyy-zzzz</dc:identifier>
+    <meta property="dcterms:modified">2017-01-01T00:00:00Z</meta>
+  </metadata>
+  <manifest>
+  <item media-type="application/xhtml+xml" id="toc" href="navigation-documents.xhtml" properties="nav"/>
+  <item media-type="application/xhtml+xml" id="p-001" href="xhtml/p-001.xhtml"/>
+  </manifest>
+  <spine page-progression-direction="ltr">
+  <item linear="yes" idref="p-001"/>
+  </spine>
+</package>

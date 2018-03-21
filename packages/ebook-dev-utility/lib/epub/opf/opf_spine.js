@@ -27,6 +27,9 @@ class OpfSpine {
         }
         elem.itemref.forEach(data => {
             const itemref = data.$
+            if (!itemref.idref) {
+                throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_SPINE_ITEMREF_NO_IDREF)
+            }
             const resource = manifestItemMap[itemref.idref]
             if (!resource) {
                 throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_SPINE_ITEMREF_NO_RESOURCE)
