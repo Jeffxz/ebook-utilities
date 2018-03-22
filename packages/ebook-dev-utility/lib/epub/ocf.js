@@ -19,15 +19,15 @@ class Ocf {
         return new Promise((resolve, reject) => {
             parser.parseString(data, (error, result) => {
                 if (!result.container) {
-                    reject(new EpubError('Root element should be container'))
+                    reject(new EpubError(EpubError.ErrorType.ERR_EPUB_OCF_NO_CONTAINER))
                 }
                 const rootfiles = result.container.rootfiles
                 if (!rootfiles) {
-                    reject(new EpubError('rootfiles does not exist in container'))
+                    reject(new EpubError(EpubError.ErrorType.ERR_EPUB_OCF_NO_ROOTFILES))
                 }
                 const rootfile = rootfiles[0].rootfile
                 if (!rootfile) {
-                    reject(new EpubError('rootfile does not exist in container'))
+                    reject(new EpubError(EpubError.ErrorType.ERR_EPUB_OCF_ROOTFILES_EMPTY))
                 }
                 rootfile.forEach(item => {
                     this.opfPath.push(item.$['full-path'])

@@ -12,7 +12,7 @@
     <meta property="dcterms:modified">2017-01-01T00:00:00Z</meta>
   </metadata>
   <manifest>
-  <item media-type="application/xhtml+xml" id="toc" href="navigation-documents.xhtml" properties="nav"/>
+  <item media-type="application/xhtml+xml" href="navigation-documents.xhtml" properties="nav"/>
   <item media-type="application/xhtml+xml" id="p-001" href="xhtml/p-001.xhtml"/>
   </manifest>
   <spine page-progression-direction="ltr">

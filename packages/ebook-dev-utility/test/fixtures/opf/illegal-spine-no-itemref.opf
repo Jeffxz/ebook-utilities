@@ -16,6 +16,6 @@
   <item media-type="application/xhtml+xml" id="p-001" href="xhtml/p-001.xhtml"/>
   </manifest>
   <spine page-progression-direction="ltr">
-  <itemref linear="yes" idref="p-001"/>
+  <item linear="yes" idref="p-001"/>
   </spine>
 </package>
