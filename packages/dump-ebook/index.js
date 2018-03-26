@@ -33,8 +33,9 @@ const program = new commander.Command(packageJson.name)
     .action(str => {
     ebookPath = str
 })
-.option('-s, --server', 'start verification server.')
+.option('-o, --output [name]', 'save a single file to local. This need to be used with -f')
 .option('-l, --list', 'list files.')
+.option('-f, --file [name]', 'file or directory information.')
     .parse(process.argv)
 
 if (typeof ebookPath === 'undefined') {
@@ -43,9 +44,12 @@ if (typeof ebookPath === 'undefined') {
 }
 
 var dumper = new EbookDumper()
-if (program.server) {
-    console.log('Not yet. ' +
-        'Please use standalone version (run without "-s") at this moment.')
+if (program.file) {
+    if (program.output) {
+        dumper.saveFlie('output to file ' + program.output)
+    } else {
+        dumper.showFile(ebookPath, program.file)
+    }
 } else if (program.list) {
     dumper.listFiles(ebookPath)
 } else {
