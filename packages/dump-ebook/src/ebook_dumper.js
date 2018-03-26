@@ -16,7 +16,7 @@ class EbookDumper {
         this.inputPathType = EbookPathType.UNKNOWN
     }
 
-    load(path) {
+    simpleJson(path) {
         this.inputPath = path
         if (path.startsWith('http')) {
             this.inputPathType = EbookPathType.URI
@@ -25,11 +25,19 @@ class EbookDumper {
             if (stats.isFile()) {
                 this.inputPathType = EbookPathType.FILE
                 const loader = new EbookDevUtil.Epubloader.Zipfile()
-                loader.loadSync(path)
+                loader.loadAsync(path).then(epub => {
+                    console.log(JSON.stringify(epub))
+                }, error => {
+                    console.log(error)
+                })
             } else {
                 this.inputPathType = EbookPathType.DIR
             }
         }
+    }
+
+    listFiles(path) {
+
     }
 }
 

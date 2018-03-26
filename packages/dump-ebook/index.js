@@ -34,6 +34,7 @@ const program = new commander.Command(packageJson.name)
     ebookPath = str
 })
 .option('-s, --server', 'start verification server.')
+.option('-l, --list', 'list files.')
     .parse(process.argv)
 
 if (typeof ebookPath === 'undefined') {
@@ -41,10 +42,12 @@ if (typeof ebookPath === 'undefined') {
     process.exit(1)
 }
 
+var dumper = new EbookDumper()
 if (program.server) {
     console.log('Not yet. ' +
         'Please use standalone version (run without "-s") at this moment.')
+} else if (program.list) {
+    dumper.listFiles(ebookPath)
 } else {
-    var dumper = new EbookDumper()
-    dumper.load(ebookPath)
+    dumper.simpleJson(ebookPath)
 }

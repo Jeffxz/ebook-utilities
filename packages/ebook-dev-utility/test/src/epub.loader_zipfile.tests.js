@@ -15,11 +15,17 @@ beforeEach(function() {
 describe('Zipfile', function() {
     it('should can load epub file without error', function() {
         let filePath = path.resolve(this.ebookPath, 'test-book.epub')
-        expect(() => {this.loader.loadSync(filePath)}).to.not.throw()
+        expect(() => {this.loader.loadAsync(filePath)}).to.not.throw()
     })
 
-    it('should raise error with file name if epub file does not exist', function() {
+    it('should raise error with file name if epub file does not exist',
+        async function() {
         let filePath = path.resolve(this.ebookPath, 'test-book')
-        expect(() => {this.loader.loadSync(filePath)}).to.throw(EpubError, 'test-book')
+        await this.loader.loadAsync(filePath).then(opf => {
+            expect(opf).to.not.exist
+        }, error => {
+            expect(error.id).to
+                .equal(EpubError.ErrorType.ERR_EPUB_GENERIC)
+        })
     })
 })
