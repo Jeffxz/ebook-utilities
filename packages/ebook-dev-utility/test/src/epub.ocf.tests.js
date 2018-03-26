@@ -19,9 +19,9 @@ describe('Ocf', function() {
                 const normalContainer = path.resolve(this.testPath,
                     'container-normal.xml')
                 const data = fs.readFileSync(normalContainer)
-                await this.ocf.parse(data).then(opfPath => {
-                    expect(opfPath.length).to.equal(1)
-                    expect(opfPath[0]).to.equal('EPUB/package.opf')
+                await this.ocf.parse(data).then(ocf => {
+                    expect(ocf.opfPath.length).to.equal(1)
+                    expect(ocf.opfPath[0]).to.equal('EPUB/package.opf')
                 }, error => {
                     expect(error).to.not.exist
                 })
@@ -32,10 +32,10 @@ describe('Ocf', function() {
                 const normalContainer = path.resolve(this.testPath,
                     'container-normal-two-rootfile.xml')
                 const data = fs.readFileSync(normalContainer)
-                await this.ocf.parse(data).then(opfPath => {
-                    expect(opfPath.length).to.equal(2)
-                    expect(opfPath[0]).to.equal('EPUB/package.opf')
-                    expect(opfPath[1]).to.equal('EPUB/package-second.opf')
+                await this.ocf.parse(data).then(ocf => {
+                    expect(ocf.opfPath.length).to.equal(2)
+                    expect(ocf.opfPath[0]).to.equal('EPUB/package.opf')
+                    expect(ocf.opfPath[1]).to.equal('EPUB/package-second.opf')
                     expect(this.ocf.defaultOpf()).to.equal('EPUB/package.opf')
             }, error => {
                     expect(error).to.not.exist
@@ -49,8 +49,8 @@ describe('Ocf', function() {
                 const noRootContainer = path.resolve(this.testPath,
                     'container-no-root-container.xml')
                 const data = fs.readFileSync(noRootContainer)
-                await this.ocf.parse(data).then(opfPath => {
-                    expect(opfPath).to.not.exist
+                await this.ocf.parse(data).then(ocf => {
+                    expect(ocf).to.not.exist
             }, error => {
                     expect(error.id).to
                         .equal(EpubError.ErrorType.ERR_EPUB_OCF_NO_CONTAINER)
@@ -62,8 +62,8 @@ describe('Ocf', function() {
                 const noRootfilesContainer = path.resolve(this.testPath,
                     'container-no-rootfiles.xml')
                 const data = fs.readFileSync(noRootfilesContainer)
-                await this.ocf.parse(data).then(opfPath => {
-                    expect(opfPath).to.not.exist
+                await this.ocf.parse(data).then(ocf => {
+                    expect(ocf).to.not.exist
             }, error => {
                     expect(error.id).to
                         .equal(EpubError.ErrorType.ERR_EPUB_OCF_NO_ROOTFILES)

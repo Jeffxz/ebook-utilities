@@ -32,7 +32,7 @@ class Ocf {
                 rootfile.forEach(item => {
                     this.opfPath.push(item.$['full-path'])
                 })
-                resolve(this.opfPath)
+                resolve(this)
             })
         })
     }
