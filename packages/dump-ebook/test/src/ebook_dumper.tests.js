@@ -7,10 +7,10 @@ before(function () {
     this.ebookPath = path.resolve(__dirname, '../ebooks')
 })
 describe('EbookDumper', function () {
-    it('EbookPathType should be FILE if loading a file', function() {
+    it('EbookPathType should be FILE if loading a file', async function() {
         let dumper = new EbookDumper()
         let filePath = path.resolve(this.ebookPath, 'test-book.epub')
-        dumper.load(filePath)
+        await dumper.loadFile(filePath, () => {})
         assert.equal(String(dumper.inputPathType), 'Symbol(FILE)')
     })
 })

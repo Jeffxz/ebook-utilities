@@ -46,7 +46,7 @@ if (typeof ebookPath === 'undefined') {
 var dumper = new EbookDumper()
 if (program.file) {
     if (program.output) {
-        dumper.saveFlie('output to file ' + program.output)
+        dumper.saveFile(ebookPath, program.file, program.output)
     } else {
         dumper.showFile(ebookPath, program.file)
     }
