@@ -35,7 +35,7 @@ class EbookDumper {
     }
 
     simpleJson(path) {
-        this.loadFile(path, (epub) => {
+        this.loadFile(path, epub => {
             console.log(JSON.stringify(epub))
         })
     }
@@ -48,7 +48,7 @@ class EbookDumper {
 
     showFile(path, file) {
         this.loadFile(path, () => {
-            let files = []
+            const files = []
             let matchFolder = false
             let folderName = ''
             for (const key in this.loader.files) {
@@ -66,15 +66,40 @@ class EbookDumper {
                 console.log('File list: ')
                 console.log(files)
             } else {
-                files.map(key => {
-                    file = this.loader.files[key]
-                    console.log('name: ' + file.name +
-                    '\n    date: ' + file.date +
-                    '\n    compressed size: ' + file._data.compressedSize +
-                    '\n    uncompressed size: ' + file._data.uncompressedSize
-                    )
-                })
+                files.map(key => console.log(this.loader.files[key]))
             }
+        })
+    }
+
+    saveFile(path, inputFile, outputFile) {
+        this.loadFile(path, () => {
+            const files = []
+            for (const key in this.loader.files) {
+                if (key.includes(inputFile)) {
+                    if (this.loader.files[key].dir) {
+                        console.log('Can not save folder')
+
+                        return
+                    }
+                    files.push(key)
+                }
+            }
+            if (files.length > 1) {
+                console.log('Input file name matched multiple files. Only can save one file')
+                console.log(files)
+
+                return
+            } else if (files.length == 0) {
+                console.log('Could not find file matches inputFile: ' + inputFile)
+
+                return
+            }
+            this.loader.files[files[0]]
+                .async('uint8array')
+                .then(data => {
+                    console.log(inputFile + ' ======> ' + outputFile)
+                    fs.writeFileSync(outputFile, data)
+            })
         })
     }
 }
