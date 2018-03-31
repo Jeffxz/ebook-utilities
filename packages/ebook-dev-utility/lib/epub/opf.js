@@ -9,7 +9,7 @@ const OpfSpine = require('./opf/opf_spine')
 class Opf {
     constructor() {
         this.version = ''
-        this.uniqueIdentitier = ''
+        this.uniqueIdentifier = ''
         this.dir = ''
         this.id = ''
         this.prefix = ''
@@ -36,7 +36,7 @@ class Opf {
                     if (!elemPackage.$['unique-identifier']) {
                         throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_NO_UNIUE_ID)
                     }
-                    this.uniqueIdentitier = elemPackage.$['unique-identifier']
+                    this.uniqueIdentifier = elemPackage.$['unique-identifier']
                     if (!elemPackage.metadata ||
                         elemPackage.metadata.length != 1) {
                         throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_PACKAGE_METADATA_COUNT)
