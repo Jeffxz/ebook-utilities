@@ -1,7 +1,7 @@
 {
   "name": "ebook-dev-utility",
   "version": "0.0.1",
-  "description": "Utilities for packages inside ebook-utilities",
+  "description": "ebook utilities for nodejs",
   "repository": {
     "type": "git",
     "url": "https://github.com/Jeffxz/ebook-utilities"
@@ -16,7 +16,8 @@
     "test": "npm run lint && npm run unit",
     "unit": "mocha test/**/*.tests.js"
   },
-  "author": "Zheng Xu <jeffxureadon@gmail.com>",
+  "author": "Zheng Xu <zhengxu7806@gmail.com>",
+  "keywords": ["ebook", "epub", "book"],
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^5.0.0",
