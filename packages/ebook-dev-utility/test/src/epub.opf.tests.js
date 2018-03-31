@@ -22,7 +22,7 @@ describe('Opf', function() {
             const data = fs.readFileSync(normalOpf)
             await this.opf.parse(data).then(opf => {
                 expect(opf.version).to.equal('3.0')
-                expect(opf.uniqueIdentitier).to.equal('unique-id')
+                expect(opf.uniqueIdentifier).to.equal('unique-id')
                 expect(opf.title[0].value).to.equal('Epub Sample')
                 expect(opf.language[0]).to.equal('ja')
                 expect(opf.identifier[0].value).to.equal('urn:uuid:xxxx-yyyy-zzzz')
