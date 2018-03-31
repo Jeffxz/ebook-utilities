@@ -2,6 +2,10 @@
   "name": "dump-ebook",
   "version": "0.0.1",
   "description": "Dump information about ebook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jeffxz/ebook-utilities"
+  },
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js src/**",
@@ -10,12 +14,13 @@
     "unit": "mocha test/**/*.tests.js"
   },
   "bin": {
-    "verify-ebook": "./index.js"
+    "dump-ebook": "./index.js"
   },
-  "author": "Zheng Xu",
+  "author": "Zheng Xu <zhengxu7806@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "npm": "^5.7.1"
+    "npm": "^5.7.1",
+    "ebook-dev-utility": "^0.0.1"
   },
   "devDependencies": {
     "eslint": "^4.18.1",
