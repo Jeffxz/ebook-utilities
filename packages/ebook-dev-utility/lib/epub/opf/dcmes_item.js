@@ -3,9 +3,6 @@
 class DcmesItem {
     constructor(elem) {
         this.value = elem._
-        if (elem.$.id) {
-            this.id = elem.$.id
-        }
         this.optionItems = {
             'opf:alt-rep': '',
             'opf:alt-rep-lang': '',
@@ -17,7 +14,7 @@ class DcmesItem {
             'xml:lang': ''
         }
         Object.keys(this.optionItems).forEach(key => {
-            if (elem.$[key]) {
+            if (elem.$ && elem.$[key]) {
                 this.optionItems[key] = elem.$[key]
             }
         })

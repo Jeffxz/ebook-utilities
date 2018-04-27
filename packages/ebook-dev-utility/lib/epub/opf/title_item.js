@@ -14,7 +14,7 @@ class TitleItem {
             'xml:lang': ''
         }
         Object.keys(this.optionItems).forEach(key => {
-            if (elem.$[key]) {
+            if (elem.$ && elem.$[key]) {
                 this.optionItems[key] = elem.$[key]
             }
         })
