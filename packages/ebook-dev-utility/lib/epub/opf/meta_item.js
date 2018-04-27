@@ -1,14 +1,17 @@
 'use strict'
 
-const EpubError = require('../epub_error')
+const Reporter = require('../reporter')
 
 class MetaItem {
     constructor(elem) {
-        this.value = elem._
-        if (!elem.$.property) {
-            throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_META_NO_PROPERTY)
+        if (elem._) {
+            this.value = elem._
         }
-        this.property = elem.$.property
+        if (elem.$.property) {
+            this.property = elem.$.property
+        } else {
+            Reporter.addWarning('Meta data has no property')
+        }
         this.optionItems = {
             'opf:alt-rep': '',
             'opf:alt-rep-lang': '',

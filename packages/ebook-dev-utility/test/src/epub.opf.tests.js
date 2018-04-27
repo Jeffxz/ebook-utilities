@@ -51,6 +51,17 @@ describe('Opf', function() {
                 expect(error).to.not.exist
             })
         })
+
+        it('should can retrieve title even though it does not have id', async function() {
+            const normalOpf = path.resolve(this.testPath,
+                'normal-metadata-title-without-id.opf')
+            const data = fs.readFileSync(normalOpf)
+            await this.opf.parse(data).then(opf => {
+                expect(opf.title[0].value).to.equal('Epub Sample')
+        }, error => {
+                expect(error).to.not.exist
+            })
+        })
     })
 
     describe('Error cases', function() {

@@ -11,4 +11,5 @@ EbookDevUtil.EpubTemplateGenerator =
     require('./epub/epub_template_generator')
 EbookDevUtil.EpubPackage = require('./epub/epub_package')
 EbookDevUtil.Epubloader = require('./epub/loader/loader')
+EbookDevUtil.Reporter = require('./epub/reporter')
 module.exports = EbookDevUtil

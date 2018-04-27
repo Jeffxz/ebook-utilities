@@ -26,7 +26,7 @@ class EbookDumper {
             if (stats.isFile()) {
                 this.inputPathType = EbookPathType.FILE
                 this.loader.loadAsync(path).then(epub => func(epub), error => {
-                    console.log(error)
+                    console.error(error)
                 })
             } else {
                 this.inputPathType = EbookPathType.DIR
@@ -37,6 +37,11 @@ class EbookDumper {
     simpleJson(path) {
         this.loadFile(path, epub => {
             console.log(JSON.stringify(epub))
+            console.log('==========================================')
+            let warnings = EbookDevUtil.Reporter.listWarnings()
+            if (warnings.length > 0) {
+                console.log(warnings)
+            }
         })
     }
 

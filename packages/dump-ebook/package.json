@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js src/**",
-    "main": "index.js",
+    "dump": "node index.js",
     "test": "npm run lint && npm run unit",
     "unit": "mocha test/**/*.tests.js"
   },

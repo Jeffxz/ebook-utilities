@@ -28,7 +28,9 @@ class Zipfile {
                 .then(ocfData => this.epub.ocf.parse(ocfData))
                 .then(ocf => this.files[ocf.defaultOpf()].async('string'))
                 .then(opfData => this.epub.opf.parse(opfData))
-                .then(() => resolve(this.epub))
+                .then(() => resolve(this.epub), error => {
+                    reject(error)
+                })
             } catch (error) {
                 if (error instanceof EpubError) {
                     reject(error)

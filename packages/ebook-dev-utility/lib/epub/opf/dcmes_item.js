@@ -2,7 +2,11 @@
 
 class DcmesItem {
     constructor(elem) {
-        this.value = elem._
+        if (elem._) {
+            this.value = elem._
+        } else {
+            this.value = elem
+        }
         this.optionItems = {
             'opf:alt-rep': '',
             'opf:alt-rep-lang': '',

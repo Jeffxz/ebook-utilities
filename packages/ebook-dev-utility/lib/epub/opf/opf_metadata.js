@@ -31,41 +31,45 @@ class OpfMetadata {
     }
 
     parse(elem) {
-        if (!elem['dc:identifier']) {
-            throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_IDENTIFIER)
-        }
-        elem['dc:identifier'].forEach(item => {
-            this.identifier.push(new IdentifierItem(item))
-        })
-        if (!elem['dc:title']) {
-            throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_TITLE)
-        }
-        elem['dc:title'].forEach(item => {
-            this.title.push(new TitleItem(item))
-        })
-        if (!elem['dc:language']) {
-            throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_LANGUAGE)
-        }
-        elem['dc:language'].forEach(item => {
-            this.language.push(item)
-        })
-        Object.keys(this.dcmesItems).forEach(key => {
-            if (elem[key]) {
-                elem[key].forEach(item => {
-                    this.dcmesItems[key].push(new DcmesItem(item))
+        try {
+            if (!elem['dc:identifier']) {
+                throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_IDENTIFIER)
+            }
+            elem['dc:identifier'].forEach(item => {
+                this.identifier.push(new IdentifierItem(item))
+            })
+            if (!elem['dc:title']) {
+                throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_TITLE)
+            }
+            elem['dc:title'].forEach(item => {
+                this.title.push(new TitleItem(item))
+            })
+            if (!elem['dc:language']) {
+                throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_LANGUAGE)
+            }
+            elem['dc:language'].forEach(item => {
+                this.language.push(item)
+            })
+            Object.keys(this.dcmesItems).forEach(key => {
+                if (elem[key]) {
+                    elem[key].forEach(item => {
+                        this.dcmesItems[key].push(new DcmesItem(item))
+                    })
+                }
+            })
+            if (!elem.meta) {
+                throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_META)
+            }
+            elem.meta.forEach(item => {
+                this.meta.push(new MetaItem(item))
+            })
+            if (elem.link) {
+                elem.link.forEach(item => {
+                    this.link.push(new LinkItem(item))
                 })
             }
-        })
-        if (!elem.meta) {
-            throw new EpubError(EpubError.ErrorType.ERR_EPUB_OPF_METADATA_NO_META)
-        }
-        elem.meta.forEach(item => {
-            this.meta.push(new MetaItem(item))
-        })
-        if (elem.link) {
-            elem.link.forEach(item => {
-                this.link.push(new LinkItem(item))
-            })
+        } catch (err) {
+            throw err
         }
     }
 }

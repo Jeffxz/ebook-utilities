@@ -1,17 +1,28 @@
 'use strict'
 
+let warnings = []
+let errors = []
+
 class Reporter {
-    constructor() {
-        this.warnings = []
-        this.errors = []
+    static addWarning(message) {
+        warnings.push(message)
     }
 
-    addWarning(message) {
-        this.warnings.add(message)
+    static addError(message) {
+        errors.push(message)
     }
 
-    addError(message) {
-        this.errors.add(message)
+    static listWarnings() {
+        return warnings
+    }
+
+    static listErrors() {
+        return errors
+    }
+
+    static reset() {
+        warnings = []
+        errors = []
     }
 }
 

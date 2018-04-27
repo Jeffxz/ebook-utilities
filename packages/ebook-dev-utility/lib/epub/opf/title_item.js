@@ -2,14 +2,16 @@
 
 class TitleItem {
     constructor(elem) {
-        this.value = elem._
-        if (elem.$.id) {
-            this.id = elem.$.id
+        if (elem._) {
+            this.value = elem._
+        } else {
+            this.value = elem
         }
         this.optionItems = {
             'opf:alt-rep': '',
             'opf:alt-rep-lang': '',
             'dir': '',
+            'id': '',
             'opf:file-as': '',
             'xml:lang': ''
         }
