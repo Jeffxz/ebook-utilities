@@ -28,7 +28,7 @@ describe('Opf', function() {
                 expect(opf.identifier[0].value).to.equal('urn:uuid:xxxx-yyyy-zzzz')
                 expect(opf.identifier[0].id).to.equal('unique-id')
                 expect(opf.creator[0].value).to.equal('Ebook Utilities')
-                expect(opf.creator[0].id).to.equal('creator01')
+                expect(opf.creator[0].optionItems.id).to.equal('creator01')
                 expect(opf.meta[0].value).to.equal('2017-01-01T00:00:00Z')
                 expect(opf.meta[0].property).to.equal('dcterms:modified')
 
